@@ -1,32 +1,66 @@
-import getLignes from './async';
-import {addMarker} from './leaflet';
+import {getLignes, getDiameter} from './async';
+import {addMarker, addLink, getMarkers, animatePathOfMarkers } from './leaflet';
 
-const populate = document.getElementById('populate');
+const details = document.getElementById('populate');
 const diameter = document.getElementById('diameter');
 const ssp = document.getElementById('ssp');
 
-const populateEvent = populate.addEventListener('click', populateFromApi);
-const diameterEvent = populate.addEventListener('click', diameterFromApi);
-const sspEvent = populate.addEventListener('click', toggleSSP);
+
+window.addEventListener('DOMContentLoaded', populateFromApi);
+const populateEvent = details.addEventListener('click', dataDetails);
+const diameterEvent = diameter.addEventListener('click', diameterFromApi);
+const sspEvent = ssp.addEventListener('click', toggleSSP);
+
+let stationsAndLignes = new Map();
+let linksBetweenStations = new Map();
 
 
 function populateFromApi(event) {
     getLignes()
         .then((lignes) => {
             lignes.data.forEach((ligne) => {
-                
                 const color = ligneColor(parseInt(ligne.num));
-                ligne.routes[0].forEach((station) => {
-                     addMarker(station.lat, station.lng, color);
-                })
-           })
+                ligne.routes[0].forEach((station, index) => {
+                     addMarker(station.lat, station.lng, color, {name: station.nom, ligne: ligne.num, num: station.num});
+                     populateMap(ligne.num, station.num);
+                     if(index !== 0) {
+                         addLink(
+                             station.lat, station.lng, 
+                             ligne.routes[0][index - 1].lat, ligne.routes[0][index - 1].lng, color, ligne.num, station.num);
+                     }
+                });
+           });
         })
         .catch((err) => {
             console.log(err);
         })
 }
-function diameterFromApi(event) {}
-function toggleSSP(event) {}
+function diameterFromApi(event) {
+    getDiameter()
+        .then((stations) => {
+            const diameterStations = stations.data;
+            diameterStations.forEach((diamStation, index) => {
+                setTimeout(() => {
+                    let ligneNumber = stationsAndLignes.get(diamStation.num);
+                    animatePathOfMarkers(ligneNumber, diamStation.num);
+                   
+                }, index * 1000)
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
+function toggleSSP(event) {
+    getMarkers()
+}
+function dataDetails(event) {
+    getMarkers();
+}
+
+function populateMap(ligne, station) {
+    stationsAndLignes.set(station, ligne);
+}
 
 function ligneColor(num) {
     let color;
