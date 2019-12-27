@@ -9,7 +9,7 @@ let binks = [];
 function initLeaflet() {
     mymap = L.map('mapid', {
         center: [48.856667, 2.35333],
-        zoom:13
+        zoom:12
     });
     L.tileLayer('https://api.mapbox.com/styles/v1/ancdev/ck4h9u474101g1co78r1b0pi1/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5jZGV2IiwiYSI6ImNrNGg5a2J0MDE0NGczc283em50Nm42YnUifQ.pqwstgKJQ9ORs-rYPdHWtA', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -21,8 +21,7 @@ function initLeaflet() {
 }
 
 function addMarker(lat, lng, color, content) {
-   let circle = L.circle([lat, lng], 100, {color: color, weight: 10, fillColor: color,fillOpacity: 0.8
-   });
+   let circle = L.circle([lat, lng], 100, {color: color, weight: 7, fillColor: color, fillOpacity: 0.8});
    circle.on('click', () => {}).addTo(mymap);
    binks.push(circle);
    circle.bindPopup(
@@ -48,20 +47,20 @@ function getMarkers() {
    console.log(links)
 }
 
-function animatePathOfMarkers(ligneNumber, stationNumber) {
-    console.log(ligneNumber, stationNumber)
+function animatePathOfMarkers(ligneNumber, stationNumber, isSSP) {
     const idx = markers[ligneNumber].findIndex(mk => Object.keys(mk).toString() === stationNumber)
     let mk = markers[ligneNumber][idx][stationNumber];
     mk.setStyle({color: 'red'});
     mk.bringToFront();
- // mymap.removeLayer(mk);  
-  
-//     let marker = binks[10];
+}
 
-//    mymap.removeLayer(marker);
-    
+function highlightMarker(ligneNumber, stationNumber, status) {
+    const idx = markers[ligneNumber].findIndex(mk => Object.keys(mk).toString() === stationNumber)
+    let mk = markers[ligneNumber][idx][stationNumber];
+    status === "source" ? mk.setStyle({color: 'red'}) : mk.setStyle({color: '#00ff4c'});
+    mk.bringToFront();
 }
 
 
 
-export { initLeaflet, addMarker, addLink, getMarkers, animatePathOfMarkers };
+export { initLeaflet, addMarker, addLink, getMarkers, animatePathOfMarkers, highlightMarker };

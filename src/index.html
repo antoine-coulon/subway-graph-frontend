@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Subway Graph</title>
+    <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
 
@@ -14,6 +15,7 @@
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin="" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" async></script>
     <script src="js/index.js" defer></script>
 
 </head>
@@ -21,15 +23,59 @@
 <body>
     <div class="toolbar-opt">
 
-        <a class="share_btn shgp" id="populate">
-            <i class="fa fa-map-marked"></i>
-        </a>
-        <a class="share_btn shtw" id="ssp">
-            <i class="fa fa-bolt"></i>
-        </a>
-        <a class=" share_btn shfdly" id="diameter">
-            <i class="fa fa-road"></i>
-        </a>
+        <div>
+            <a class="share_btn shgp" id="populate">
+                <i class="fa fa-map-marked"></i>
+            </a>
+            <a class="share_btn shtw" id="ssp">
+                <i class="fa fa-bolt"></i>
+            </a>
+            <a class=" share_btn shfdly" id="diameter">
+                <i class="fa fa-road"></i>
+            </a>
+        </div>
+      
+
+        <div class="relative-bloc" id="actions-bloc">
+         
+                <div>
+                    <h3> Calculate shortest path </h3>
+                </div>
+    
+                <label>
+                    <b>Graph mode</b> 
+
+                    <select style="width: 75%;" id="modeSelect">
+                        <option value="weighted">Weighted</option>
+                        <option value="unweighted">Unweighted</option>
+                    </select>
+                </label>
+
+                <label>
+                    <b>Source </b> 
+                    <select class="lignes-select" id="source-select">
+                    </select>
+                    <input type="text" id="source-input">
+                </label>
+
+                <div class="text-zone-source txt-zone">Results</div>
+                <label>
+                    <b>Destination </b> 
+                    <select class="lignes-select" id="destination-select">
+            
+                    </select>
+                    <input type="text" id="destination-input">
+                </label>
+
+                <div class="text-zone-destination txt-zone">Results</div>
+
+          
+        </div>
+    </div>
+
+    <div id="snackbar-success">
+        <i class="fa fa-check-circle"></i>
+        <span> The shortest path is being displayed...</span>
     </div>
     <div id="mapid"></div>
 </body>

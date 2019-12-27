@@ -4,6 +4,34 @@ html, body {
     margin:0;
     padding:0;
     box-sizing: border-box;
+    font-family: 'Kulim Park', sans-serif;
+
+    #snackbar-success {
+
+        position: absolute;
+        width:400px;
+        height:55px;
+        bottom: 0;
+        z-index:10;
+        left: 50%;
+        border-radius:8px;
+        transform: translate(-50%, -50%); 
+        padding:4px;
+        display: none;
+        text-transform: uppercase;
+        justify-content: center;
+        align-items: center;
+        background: rgb(0, 182, 9);
+        color:white;
+        font-weight: bold;
+        flex-direction: column;
+
+        i {
+            font-size:23px;
+            margin-bottom: 5px;
+        }
+    }
+
 
 
     .visible {
@@ -19,12 +47,118 @@ html, body {
         position: absolute;
         top: 18px;
         right: 22px;
-        width:300px;
+        width:400px;
         display: flex;
         justify-content: space-between;
         border-radius: 50%;
         z-index: 7;
-    
+        display: flex;
+        flex-direction: column;
+
+
+
+
+        .roundedIcon {
+            font-size: 1.1em;
+            text-align: center;
+            background: #666;
+            margin-left:7px;
+            overflow: auto;
+            color: #fff;
+            border-radius: 0.8em;
+        }
+
+        #actions-bloc {
+            display: none;
+            max-height: 500px;
+            overflow-y: auto;
+
+            .txt-zone {
+                display: none;
+            }
+
+            .result-style {
+                list-style-type: none;
+                padding:0;
+                margin-top:0;
+                width:100%;
+                text-align: left;
+
+                li {
+                    margin:12px auto;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 7px;
+                    padding: 4px;
+                    transition: 0.3s all;
+        
+                    &:hover {
+                        cursor: pointer;
+                        background: rgb(189, 189, 189);
+                    }
+
+                    p {
+                        margin: 5px 0px;
+                    }
+                }
+            }
+        }
+        .txt-zone {
+            min-height: 100px;
+            display: flex;
+            padding: 11px;
+        } 
+
+        // div:nth-child(2) {
+        //     resize: both;
+        //     overflow: scroll;
+        // }
+        div:nth-child(1) {
+            width:70%;
+            margin:0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom:12px;
+        }
+        div:nth-child(2) {
+            position: relative;
+            top:15px;
+            background: rgb(238, 238, 238);
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            label {
+                display: flex;
+                margin-bottom: 10px;
+
+
+                b {
+                    width:25%;
+                }
+                select {
+                    text-align: right;
+                    margin-left:12px;
+                    width:27%;
+                }
+                input {
+                    width:48%;
+                }
+            }
+          
+
+            div {
+                text-align: center;
+                h3 {
+                    text-align: center;
+                    margin:7px auto;
+                }
+            }
+        }
     }
 
     #mapid { height: 100%; width:100%; z-index: 5; }
