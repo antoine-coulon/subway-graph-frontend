@@ -1,6 +1,5 @@
-import * as axios from 'axios';
-import * as qs from 'querystring';
-import 'babel-polyfill';
+const axios = require('axios');
+const qs = require('querystring');
 
 const url = 'http://localhost:8080/subway_graph_project_war_exploded';
 
